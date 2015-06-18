@@ -32,60 +32,79 @@ void Preview::run(sc::PreviewReplyProxy const& reply) {
     // 2 or more columns.
     // Column layout definitions are optional.
     // However, we recommend that scopes define layouts for the best visual appearance.
+    if(result["type"].get_string() == "welcome") {
+        // Single column layout
+        layout1col.add_column( { "image", "header" });
+        reply->register_layout( { layout1col });
 
-    // Single column layout
-    layout1col.add_column( { "image", "header", "summary", "actions", "expandable" });
+        // Define the header section
+        sc::PreviewWidget header("header", "header");
+        header.add_attribute_mapping("title", "title");
 
-    // Two column layout
-    layout2col.add_column( { "image", "actions" });
-    layout2col.add_column( { "header", "summary", "expandable" });
+        // Define the image section
+        sc::PreviewWidget image("image", "image");
+        image.add_attribute_mapping("source", "art");
 
-    // Three cokumn layout
-    layout3col.add_column( { "image", "actions" });
-    layout3col.add_column( { "header", "summary" });
-    layout3col.add_column( { "expandable" });
+        // Push each of the sections
+        reply->push( { image, header });
+    }
+    else if(result["type"].get_string() == "empty") {
+    }
+    else {
+        // Single column layout
+        layout1col.add_column( { "image", "header", "summary", "actions", "expandable" });
 
-    // Register the layouts we just created
-    reply->register_layout( { layout1col, layout2col, layout3col });
+        // Two column layout
+        layout2col.add_column( { "image", "actions" });
+        layout2col.add_column( { "header", "summary", "expandable" });
 
-    // Define the header section
-    sc::PreviewWidget header("header", "header");
-    // It has title and a subtitle properties
-    header.add_attribute_mapping("title", "title");
-    header.add_attribute_mapping("subtitle", "subtitle");
+        // Three cokumn layout
+        layout3col.add_column( { "image", "actions" });
+        layout3col.add_column( { "header", "summary" });
+        layout3col.add_column( { "expandable" });
 
-    // Define the image section
-    sc::PreviewWidget image("image", "image");
-    // It has a single source property, mapped to the result's art property
-    image.add_attribute_mapping("source", "art");
+        // Register the layouts we just created
+        reply->register_layout( { layout1col, layout2col, layout3col });
 
-    // Define the summary section
-    sc::PreviewWidget description("summary", "text");
-    // It has a text property, mapped to the result's description property
-    description.add_attribute_mapping("text", "description");
+        // Define the header section
+        sc::PreviewWidget header("header", "header");
+        // It has title and a subtitle properties
+        header.add_attribute_mapping("title", "title");
+        header.add_attribute_mapping("subtitle", "subtitle");
 
-    // Original article
-    sc::PreviewWidget expandable("expandable", "expandable");
-    expandable.add_attribute_value("title", sc::Variant("Original Article"));
+        // Define the image section
+        sc::PreviewWidget image("image", "image");
+        // It has a single source property, mapped to the result's art property
+        image.add_attribute_mapping("source", "art");
 
-    sc::PreviewWidget original("original", "text");
-    original.add_attribute_value("text", result["original"]);
+        // Define the summary section
+        sc::PreviewWidget description("summary", "text");
+        // It has a text property, mapped to the result's description property
+        description.add_attribute_mapping("text", "description");
 
-    expandable.add_widget(original);
+        // Original article
+        sc::PreviewWidget expandable("expandable", "expandable");
+        expandable.add_attribute_value("title", sc::Variant("Original Article"));
 
-    expandable.add_attribute_value("collapsed-widgets", sc::Variant("text"));
+        sc::PreviewWidget original("original", "text");
+        original.add_attribute_value("text", result["original"]);
 
-    // Actions
-    sc::PreviewWidget actions("actions", "actions");
-    sc::VariantBuilder builder;
-    builder.add_tuple({
-                          {"id", sc::Variant("open")},
-                          {"label", sc::Variant("View")},
-                          {"uri", result["link"]}
-                      });
-    actions.add_attribute_value("actions", builder.end());
+        expandable.add_widget(original);
 
-    // Push each of the sections
-    reply->push( { image, header, description, actions, expandable });
+        expandable.add_attribute_value("collapsed-widgets", sc::Variant("text"));
+
+        // Actions
+        sc::PreviewWidget actions("actions", "actions");
+        sc::VariantBuilder builder;
+        builder.add_tuple({
+                              {"id", sc::Variant("open")},
+                              {"label", sc::Variant("View")},
+                              {"uri", result["link"]}
+                          });
+        actions.add_attribute_value("actions", builder.end());
+
+        // Push each of the sections
+        reply->push( { image, header, description, actions, expandable });
+    }
 }
 

@@ -110,11 +110,10 @@ void Query::run(sc::SearchReplyProxy const& reply) {
         sc::CategorisedResult res(result_cat);
         if(show_welcome) {
             res.set_uri("welcome");
-            res.set_title("Welcome in Sherlock!");
+            res.set_title("Welcome to Sherlock!");
             res.set_art("http://marioguerrieroesempio.altervista.org/data/happy-face.png");
-            res["summary"] = "I couldn't find any result. Please, change you query or check your connectivity and try again.";
-            res["description"] = "No results found";
-            res["type"] = "empty";
+            res["summary"] = "Sherlock can summarize any article you find on the internet. Just paste your URL in the search box and let Sherlock read it. Sherlock will be able to tell you what it does contain in a moment. Elementary, no?";
+            res["type"] = "welcome";
         }
         /**
           * 404 Error
