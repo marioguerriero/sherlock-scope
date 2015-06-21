@@ -137,6 +137,7 @@ void Query::run(sc::SearchReplyProxy const& reply) {
             res["original"] = result.result.article;
             res["summary"] = result.result.tags;
             res["description"] = result.result.summary;
+            res["type"] = "found";
         }
 
         // Push the result

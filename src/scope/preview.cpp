@@ -26,14 +26,10 @@ void Preview::run(sc::PreviewReplyProxy const& reply) {
     // Support three different column layouts
     sc::ColumnLayout layout1col(1), layout2col(2), layout3col(3);
 
-    // We define 3 different layouts, that will be used depending on the
-    // device. The shell (view) will decide which layout fits best.
-    // If, for instance, we are executing in a tablet probably the view will use
-    // 2 or more columns.
-    // Column layout definitions are optional.
-    // However, we recommend that scopes define layouts for the best visual appearance.
+    /**
+      * Welcome view
+      */
     if(result["type"].get_string() == "welcome") {
-        // Single column layout
         layout1col.add_column( { "image", "header" });
         reply->register_layout( { layout1col });
 
@@ -48,9 +44,28 @@ void Preview::run(sc::PreviewReplyProxy const& reply) {
         // Push each of the sections
         reply->push( { image, header });
     }
+    /**
+      * No results
+      */
     else if(result["type"].get_string() == "empty") {
+        layout1col.add_column( { "image", "header" });
+        reply->register_layout( { layout1col });
+
+        // Define the header section
+        sc::PreviewWidget header("header", "header");
+        header.add_attribute_mapping("title", "title");
+
+        // Define the image section
+        sc::PreviewWidget image("image", "image");
+        image.add_attribute_mapping("source", "art");
+
+        // Push each of the sections
+        reply->push( { image, header });
     }
-    else {
+    /**
+      * Result preview
+      */
+    else if(result["type"].get_string() == "found") {
         // Single column layout
         layout1col.add_column( { "image", "header", "summary", "actions", "expandable" });
 
