@@ -1,15 +1,19 @@
 {
+    "name": "@APP_ID@",
+    "description": "Be lazy, there's Sherlock.",
     "architecture": "@CLICK_ARCH@",
-    "description": "A simple Unity scope that accesses the network",
-    "framework": "ubuntu-sdk-15.04",
+    "title": "@APP_NAME@",
     "hooks": {
-        "adlegant-scope": {
-            "apparmor": "adlegant-scope.apparmor",
-            "scope": "adlegant-scope"
+        "sherlock": {
+            "apparmor": "app/sherlock.apparmor",
+            "desktop": "sherlock.desktop"
+        },
+        "sherlock-scope": {
+            "apparmor": "scope/sherlock-scope.apparmor",
+            "scope": "sherlock-scope"
         }
     },
+    "version": "0.2",
     "maintainer": "Mario Guerriero <marioguerriero33@gmail.com>",
-    "name": "adlegant-scope.mefrio-g",
-    "title": "adlegant-scope",
-    "version": "0.1"
+    "framework": "ubuntu-sdk-15.04"
 }

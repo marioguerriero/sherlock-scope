@@ -113,7 +113,7 @@ function(INTLTOOL_UPDATE_POTFILE)
         set(_OUTPUT_FILE --output-file="${_ARG_OUTPUT_FILE}")
     endif()
 
-    set(_PO_DIRECTORY "${CMAKE_SOURCE_DIR}/po")
+    set(_PO_DIRECTORY "${CMAKE_SOURCE_DIR}/scope/po")
     if(_ARG_PO_DIRECTORY)
         set(_PO_DIRECTORY "${_ARG_PO_DIRECTORY}")
     endif()
@@ -213,7 +213,7 @@ function(INTLTOOL_MERGE_TRANSLATIONS FILENAME OUTPUT_FILE)
 
     get_filename_component(_ABS_FILENAME ${FILENAME} ABSOLUTE)
 
-    set(_PO_DIRECTORY "${CMAKE_SOURCE_DIR}/po")
+    set(_PO_DIRECTORY "${CMAKE_SOURCE_DIR}/scope/po")
     if(_ARG_PO_DIRECTORY)
         set(_PO_DIRECTORY "${_ARG_PO_DIRECTORY}")
     endif()

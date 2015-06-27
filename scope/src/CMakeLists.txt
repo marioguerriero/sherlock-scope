@@ -2,7 +2,7 @@
 # Put the ini file in the build directory next to the scope
 # .so file so test tools can find both easily.
 intltool_merge_translations(
-  "${CMAKE_SOURCE_DIR}/data/${SCOPE_NAME}.ini.in"
+  "${CMAKE_SOURCE_DIR}/scope/data/${SCOPE_NAME}.ini.in"
   "${CMAKE_CURRENT_BINARY_DIR}/${SCOPE_NAME}.ini"
   ALL
   UTF8
@@ -15,8 +15,15 @@ install(
 )
 
 configure_file(
-  "${CMAKE_SOURCE_DIR}/data/logo.png"
+  "${CMAKE_SOURCE_DIR}/scope/data/logo.png"
   "${CMAKE_CURRENT_BINARY_DIR}/logo.png"
+  @ONLY
+  COPYONLY
+)
+
+configure_file(
+  "${CMAKE_SOURCE_DIR}/scope/data/icon.png"
+  "${CMAKE_CURRENT_BINARY_DIR}/icon.png"
   @ONLY
   COPYONLY
 )
@@ -32,7 +39,7 @@ set(SCOPE_SOURCES
 # Find all the headers
 file(GLOB_RECURSE
   SCOPE_HEADERS
-  "${CMAKE_SOURCE_DIR}/include/*.h" 
+  "${CMAKE_SOURCE_DIR}/scope/include/api/*.h"
 )
 
 # Build an object library for the scope code

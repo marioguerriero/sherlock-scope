@@ -1,4 +1,4 @@
-[type: gettext/ini] data/adlegant-scope.mefrio-g_adlegant-scope.ini.in
+[type: gettext/ini] data/sherlock-scope.mefrio-g_sherlock-scope.ini.in
 include/api/config.h
 include/api/client.h
 include/scope/preview.h
